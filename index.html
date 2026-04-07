@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ئاڵای کوردستان</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #0f0f1a 50%, #000 100%);
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    overflow: hidden; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+.flag-wrapper {
+    position: relative;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.8));
+}
+.flag-container { 
+    width: 80vw; 
+    max-width: 700px; 
+    aspect-ratio: 3/2; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    position: relative;
+    box-shadow: 
+        0 25px 80px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(255,255,255,0.1),
+        inset 0 0 100px rgba(0,0,0,0.2);
+    transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+    animation: flagFloat 6s ease-in-out infinite;
+}
+@keyframes flagFloat {
+    0%, 100% { transform: perspective(1000px) rotateY(-5deg) rotateX(2deg) translateY(0); }
+    50% { transform: perspective(1000px) rotateY(-3deg) rotateX(1deg) translateY(-10px); }
+}
+.flag { 
+    width: 100%; 
+    height: 100%; 
+    display: flex; 
+    flex-direction: column; 
+    position: relative; 
+}
+.stripe { 
+    flex: 1; 
+    width: 100%; 
+    position: relative;
+    opacity: 0; 
+    transform: translateX(-100%); 
+    animation: slideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
+}
+.red { 
+    background: linear-gradient(135deg, #ff2d2d 0%, #cc0000 30%, #ed2024 50%, #cc0000 70%, #ff2d2d 100%);
+    animation-delay: 0.3s; 
+    box-shadow: inset 0 -10px 30px rgba(0,0,0,0.2);
+}
+.white { 
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 50%, #ffffff 100%);
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    animation-delay: 0.8s;
+    box-shadow: inset 0 10px 30px rgba(0,0,0,0.1), inset 0 -10px 30px rgba(0,0,0,0.1);
+}
+.green { 
+    background: linear-gradient(135deg, #2ecc71 0%, #1a6b30 30%, #278e43 50%, #1a6b30 70%, #2ecc71 100%);
+    animation-delay: 1.3s;
+    box-shadow: inset 0 10px 30px rgba(0,0,0,0.2);
+}
+@keyframes slideIn { 
+    0% { opacity: 0; transform: translateX(-100%) scale(0.9); } 
+    60% { opacity: 1; transform: translateX(5%) scale(1.02); } 
+    100% { opacity: 1; transform: translateX(0) scale(1); } 
+}
+.sun-wrapper { 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%) scale(0); 
+    width: 45%; 
+    height: 160%; 
+    z-index: 10;
+    opacity: 0; 
+    animation: sunAppear 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 2s; 
+}
+@keyframes sunAppear { 
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0) rotate(-180deg); } 
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) rotate(0deg); } 
+    70% { transform: translate(-50%, -50%) scale(0.95) rotate(10deg); } 
+    100% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); } 
+}
+.sun { 
+    width: 100%; 
+    height: 100%; 
+    filter: drop-shadow(0 0 20px rgba(254,189,17,0.6));
+    animation: sunPulse 4s ease-in-out infinite 3.5s, sunRotate 30s linear infinite 3.5s; 
+}
+@keyframes sunPulse { 
+    0%, 100% { filter: drop-shadow(0 0 15px rgba(254,189,17,0.8)) drop-shadow(0 0 30px rgba(254,189,17,0.4)); } 
+    50% { filter: drop-shadow(0 0 25px rgba(254,189,17,1)) drop-shadow(0 0 50px rgba(254,189,17,0.6)); } 
+}
+@keyframes sunRotate { 
+    from { transform: rotate(0deg); } 
+    to { transform: rotate(360deg); } 
+}
+.sun svg { 
+    width: 100%; 
+    height: 100%; 
+}
+.sun-rays { 
+    fill: #febd11;
+    filter: drop-shadow(0 0 5px rgba(254,189,17,0.8));
+}
+.title { 
+    color: #fff; 
+    font-size: 2.5rem; 
+    text-align: center;
+    font-weight: 300;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    opacity: 0; 
+    animation: titleFadeIn 1.5s ease forwards 3.5s;
+    text-shadow: 0 0 30px rgba(254,189,17,0.5), 0 0 60px rgba(254,189,17,0.3);
+    position: relative;
+}
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #febd11, transparent);
+    animation: lineExpand 1s ease forwards 4.5s;
+}
+@keyframes lineExpand {
+    to { transform: translateX(-50%) scaleX(1); }
+}
+@keyframes titleFadeIn { 
+    0% { opacity: 0; transform: translateY(30px); letter-spacing: 20px; }
+    100% { opacity: 1; transform: translateY(0); letter-spacing: 8px; }
+}
+.flag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px);
+    pointer-events: none;
+    z-index: 5;
+}
+.flag::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+    animation: shine 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 6;
+}
+@keyframes shine {
+    0%, 100% { transform: translateX(-100%) rotate(45deg); }
+    50% { transform: translateX(100%) rotate(45deg); }
+}
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(254,189,17,0.6);
+    border-radius: 50%;
+    animation: float 15s infinite;
+}
+@keyframes float {
+    0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+}
+@media(max-width: 768px) { 
+    .flag-container { width: 90vw; transform: perspective(1000px) rotateY(-3deg) rotateX(1deg); }
+    .sun-wrapper { width: 50%; height: 150%; }
+    .title { font-size: 1.8rem; letter-spacing: 4px; }
+    .title::after { width: 60px; }
+}
+@media(max-width: 480px) { 
+    .flag-container { width: 95vw; transform: perspective(800px) rotateY(-2deg); }
+    .sun-wrapper { width: 55%; height: 140%; }
+    .title { font-size: 1.4rem; letter-spacing: 3px; }
+    .container { gap: 25px; }
+}
+</style>
+</head>
+<body>
+
+<div class="particles" id="particles"></div>
+
+<div class="container">
+    <div class="flag-wrapper">
+        <div class="flag-container">
+            <div class="flag">
+                <div class="stripe red"></div>
+                <div class="stripe white">
+                    <div class="sun-wrapper">
+                        <div class="sun">
+                            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                <g class="sun-rays">
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(0,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(17.14,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(34.28,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(51.42,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(68.56,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(85.7,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(102.84,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(119.98,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(137.12,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(154.26,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(171.4,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(188.54,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(205.68,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(222.82,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(239.96,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(257.1,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(274.24,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(291.38,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(308.52,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(325.66,100,100)"/>
+                                    <polygon points="100,6 107,58 93,58" transform="rotate(342.8,100,100)"/>
+                                </g>
+                                <circle cx="100" cy="100" r="20" fill="#febd11"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="stripe green"></div>
+            </div>
+        </div>
+    </div>
+    <div class="title">ئاڵای کوردستان</div>
+</div>
+
+<!-- iframe trick for autoplay -->
+<iframe src="Kurdishtan.mp3" allow="autoplay" style="display:none"></iframe>
+
+<audio id="kurdistan-music" autoplay loop>
+    <source src="Kurdishtan.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Create particles
+for(let i = 0; i < 30; i++) {
+    let particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+    document.getElementById('particles').appendChild(particle);
+}
+
+// Audio autoplay
+var audio = document.getElementById('kurdistan-music');
+audio.volume = 0.6;
+
+// Try multiple times
+function tryPlay() {
+    audio.play().catch(function(){});
+}
+
+tryPlay();
+setTimeout(tryPlay, 100);
+setTimeout(tryPlay, 500);
+setTimeout(tryPlay, 1000);
+setTimeout(tryPlay, 2000);
+
+window.onload = tryPlay;
+</script>
+
+</body>
+</html>
